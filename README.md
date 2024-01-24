@@ -1,4 +1,4 @@
-Web scraping static sites with Cheerio and Axios. The application scrapes articles from news websites and generates article summaries with OpenAI. Node and Express used to expose API for server-side scraping and generated summaries.
+Web scraping static sites with Cheerio and Axios. The application scrapes articles from news websites and generates article summaries with OpenAI. Node and Express used to expose API for server-side scraping and generating summaries.
 
 To run locally,
 
