@@ -5,9 +5,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const getArticles = async (req, res) => {
-  const categories = ["singapore", "asia", "world", "business", "sport"];
   let articles = [];
   const now = Date.now();
+  const categories = ["singapore", "asia", "world", "business", "sport"];
 
   const getLatest = (articles) => {
     articles.sort((a, b) => {
@@ -34,7 +34,7 @@ const getArticles = async (req, res) => {
   };
 
   try {
-    // CNA
+    // get CNA articles
 
     let html = await axios.get("https://www.channelnewsasia.com/latest-news");
     let $ = cheerio.load(html.data);
@@ -73,7 +73,7 @@ const getArticles = async (req, res) => {
 
     articles.push(...getLatest(cnaArticles));
 
-    // ST
+    // get ST articles
 
     let stArticles = [];
 
@@ -107,7 +107,7 @@ const getArticles = async (req, res) => {
 
     articles.push(...getLatest(stArticles));
 
-    // article image
+    // get article images
 
     for (let i = 0; i < articles.length; i++) {
       html = await axios.get(articles[i].url);
