@@ -5,42 +5,78 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const getArticles = async (req, res) => {
+  const categories = ["singapore", "asia", "world", "business", "sport"];
   let articles = [];
   const now = Date.now();
 
+  const getLatest = (articles) => {
+    articles.sort((a, b) => {
+      if (a.category < b.category) return -1;
+      if (a.category > b.category) return 1;
+      return a.timestamp - b.timestamp;
+    });
+
+    const result = [];
+    const categoryMap = new Map();
+    categories.forEach((category) => categoryMap.set(category, []));
+
+    articles.forEach((article) => {
+      const category = article.category.toLowerCase();
+      const categoryArray = categoryMap.get(category);
+
+      if (categoryArray.length < 6) {
+        categoryArray.push(article);
+        result.push(article);
+      }
+    });
+
+    return result;
+  };
+
   try {
+    // CNA
+
     let html = await axios.get("https://www.channelnewsasia.com/latest-news");
     let $ = cheerio.load(html.data);
 
-    // CNA
+    let cnaArticles = [];
 
     $(".media-object").each((index, element) => {
-      const title = $(element).find(".list-object__heading-link").text().trim();
-      const url =
-        "https://www.channelnewsasia.com" +
-        $(element).find(".list-object__heading-link").attr("href").trim();
       const category = $(element).find(".list-object__category").text().trim();
-      const timestamp =
-        (now -
-          $(element)
-            .find(".list-object__timestamp")
-            .attr("data-lastupdated")
-            .trim() *
-            1000) /
-        1000;
 
-      articles.push({
-        provider: "cna",
-        title,
-        url,
-        category,
-        timestamp,
-      });
+      if (categories.includes(category.toLowerCase())) {
+        const title = $(element)
+          .find(".list-object__heading-link")
+          .text()
+          .trim();
+        const url =
+          "https://www.channelnewsasia.com" +
+          $(element).find(".list-object__heading-link").attr("href").trim();
+        const timestamp =
+          (now -
+            $(element)
+              .find(".list-object__timestamp")
+              .attr("data-lastupdated")
+              .trim() *
+              1000) /
+          1000;
+
+        cnaArticles.push({
+          provider: "cna",
+          title,
+          url,
+          category,
+          timestamp,
+        });
+      }
     });
+
+    articles.push(...getLatest(cnaArticles));
 
     // ST
 
-    const categories = ["singapore", "asia", "world", "business", "sport"];
+    let stArticles = [];
+
     for (const category of categories) {
       html = await axios.get(`https://www.straitstimes.com/${category}/latest`);
       $ = cheerio.load(html.data);
@@ -59,7 +95,7 @@ const getArticles = async (req, res) => {
               1000) /
           1000;
 
-        articles.push({
+        stArticles.push({
           provider: "st",
           title,
           url,
@@ -67,6 +103,25 @@ const getArticles = async (req, res) => {
           timestamp,
         });
       });
+    }
+
+    articles.push(...getLatest(stArticles));
+
+    // article image
+
+    for (let i = 0; i < articles.length; i++) {
+      html = await axios.get(articles[i].url);
+      $ = cheerio.load(html.data);
+
+      if (articles[i].provider === "cna") {
+        const imageUrl = $(".figure img.image").attr("src");
+        articles[i]["imageUrl"] = imageUrl;
+      }
+
+      if (articles[i].provider === "st") {
+        const imageUrl = $(".group-image-frame img").attr("src");
+        articles[i]["imageUrl"] = imageUrl;
+      }
     }
 
     res.status(200).json(articles);

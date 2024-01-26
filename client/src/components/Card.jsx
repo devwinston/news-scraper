@@ -3,16 +3,8 @@ import React from "react";
 import cnaLogo from "../assets/images/cna-logo.jpg";
 import stLogo from "../assets/images/st-logo.png";
 
-const Card = ({
-  provider,
-  title,
-  url,
-  timestamp,
-  setTitle,
-  getSummary,
-  setSummary,
-  setModal,
-}) => {
+const Card = ({ article, setTitle, getSummary, setSummary, setModal }) => {
+  const { provider, title, url, imageUrl, timestamp } = article;
   const handleClick = async (provider, url, title) => {
     setModal(true);
     setTitle(title);
@@ -23,6 +15,10 @@ const Card = ({
 
   return (
     <div className="card">
+      <div
+        className="card-image"
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      ></div>
       <a className="card-title" href={url} target="_blank" rel="noreferrer">
         {title}
       </a>

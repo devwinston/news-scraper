@@ -19,16 +19,15 @@ const Articles = ({
       <div className="grid-container">
         {data &&
           data
-            .filter((article) => article.category.toLowerCase() === category.toLowerCase())
+            .filter(
+              (article) =>
+                article.category.toLowerCase() === category.toLowerCase()
+            )
             .sort((a, b) => a.timestamp - b.timestamp)
-            .slice(0, 18)
             .map((article, index) => (
               <Card
                 key={index}
-                provider={article.provider}
-                title={article.title}
-                url={article.url}
-                timestamp={article.timestamp}
+                article={article}
                 setTitle={setTitle}
                 getSummary={getSummary}
                 setSummary={setSummary}
