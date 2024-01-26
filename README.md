@@ -10,8 +10,6 @@ Of note, the Render web service is the free tier, hence the live site may requir
 
 [![My Skills](https://skillicons.dev/icons?i=react,nodejs,express)](https://skillicons.dev)
 
-![screenshot](https://github.com/obdwinston/news-scraper/assets/104728656/4d6f4ab8-7f1e-41f5-ae55-5685d0ea7e82)
-
 ![screenshot](https://github.com/obdwinston/news-scraper/assets/104728656/005d52c6-61a8-4ca0-b1cf-f585ed3be7bd)
 
 ![screenshot](https://github.com/obdwinston/news-scraper/assets/104728656/94cbcbfe-76e0-4c6c-b033-224f5f1e0b4b)
