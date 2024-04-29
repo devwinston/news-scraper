@@ -10,6 +10,6 @@ The live site is hosted with Render's free tier web service, which will require 
 
 [![My Skills](https://skillicons.dev/icons?i=react,nodejs,express)](https://skillicons.dev)
 
-![screenshot](https://github.com/obdwinston/news-scraper/assets/104728656/005d52c6-61a8-4ca0-b1cf-f585ed3be7bd)
+![screenshot](https://github.com/devwinston/news-scraper/assets/168418637/8516eacb-20da-4aa2-a48e-a0154ea417b3)
 
-![screenshot](https://github.com/obdwinston/news-scraper/assets/104728656/94cbcbfe-76e0-4c6c-b033-224f5f1e0b4b)
+![screenshot](https://github.com/devwinston/news-scraper/assets/168418637/7c978729-5cd7-4957-a982-1886bd25c3fa)
