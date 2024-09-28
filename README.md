@@ -1,4 +1,6 @@
-Scrapes articles from news websites with Cheerio and generates article summaries with OpenAI. Node and Express used to expose API for server-side scraping and summary generation.
+Scrapes news articles and generates article summaries.
+
+Web scraping with Cheerio and summary generation with OpenAI.
 
 [Live Site](https://news-scraper-yhkw.onrender.com)
 
