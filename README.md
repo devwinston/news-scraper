@@ -1,6 +1,7 @@
 Scrapes news articles and generates article summaries.
 
-Web scraping with Cheerio and summary generation with OpenAI.
+- Web scraping with Cheerio and summary generation with OpenAI.
+- Responsive design for desktop and mobile views.
 
 [Live Site](https://news-scraper-yhkw.onrender.com)
 
